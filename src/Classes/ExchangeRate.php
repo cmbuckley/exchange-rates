@@ -38,7 +38,7 @@ class ExchangeRate
      */
     public function currencies(): array
     {
-        return $this->requestBuilder->makeRequest('symbols')['symbols'];
+        return $this->requestBuilder->makeRequest('list')['currencies'];
     }
 
     /**
@@ -67,21 +67,22 @@ class ExchangeRate
             : implode(',', $to);
 
         $queryParams = [
-            'base'    => $from,
-            'symbols' => $symbols,
+            'source'     => $from,
+            'currencies' => $symbols,
         ];
 
-        $requestPath = $date
-            ? $date->format('Y-m-d')
-            : 'latest';
-
-        $rates = $this->requestBuilder->makeRequest($requestPath, $queryParams)['rates'];
-
-        if (is_string($to)) {
-            return $rates[$to];
+        if ($date) {
+            $queryParams['date'] = $date->format('Y-m-d');
         }
 
-        return array_map(static fn (string $item): string => $item, $rates);
+        $requestPath = $date ? 'historical' : 'live';
+        $quotes = $this->requestBuilder->makeRequest($requestPath, $queryParams)['quotes'];
+
+        if (is_string($to)) {
+            return $quotes[$from.$to];
+        }
+
+        return array_map(static fn (string $item): string => $item, $quotes);
     }
 
     /**

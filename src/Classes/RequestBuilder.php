@@ -52,7 +52,7 @@ class RequestBuilder
         );
 
         if (!$response['success']) {
-            throw new ServiceException($response['error']['info'], $response['error']['code']);
+            throw new ServiceException("Error calling $path API: ".$response['error']['info'], $response['error']['code']);
         }
 
         return $response;

@@ -17,9 +17,9 @@ class ConvertTest extends TestCase
 
         $requestBuilderMock->shouldReceive('makeRequest')
             ->once()
-            ->withArgs(['latest', [
-                'base'    => 'GBP',
-                'symbols' => 'EUR',
+            ->withArgs(['live', [
+                'source'     => 'GBP',
+                'currencies' => 'EUR',
             ]])
             ->andReturn($this->mockResponseForTodayForSingleCurrency());
 
@@ -36,16 +36,16 @@ class ConvertTest extends TestCase
 
         $requestBuilderMock->shouldReceive('makeRequest')
             ->once()
-            ->withArgs(['latest', [
-                'base'    => 'GBP',
-                'symbols' => 'EUR,USD',
+            ->withArgs(['live', [
+                'source'     => 'GBP',
+                'currencies' => 'EUR,USD',
             ]])
             ->andReturn($this->mockResponseForTodayForMultipleCurrencies());
 
         self::assertSame(
             [
-                'EUR' => '118.68640000',
-                'USD' => '137.63950000',
+                'GBPEUR' => '118.68640000',
+                'GBPUSD' => '137.63950000',
             ],
             (new ExchangeRate($requestBuilderMock))->convert(100, 'GBP', ['EUR', 'USD']),
         );
@@ -58,9 +58,10 @@ class ConvertTest extends TestCase
 
         $requestBuilderMock->shouldReceive('makeRequest')
             ->once()
-            ->withArgs(['2021-10-25', [
-                'base'    => 'GBP',
-                'symbols' => 'EUR',
+            ->withArgs(['historical', [
+                'source'     => 'GBP',
+                'currencies' => 'EUR',
+                'date'       => '2021-10-25',
             ]])
             ->andReturn($this->mockResponseForYesterdayForSingleCurrency());
 
@@ -77,16 +78,17 @@ class ConvertTest extends TestCase
 
         $requestBuilderMock->shouldReceive('makeRequest')
             ->once()
-            ->withArgs(['2021-10-25', [
-                'base'    => 'GBP',
-                'symbols' => 'EUR,USD',
+            ->withArgs(['historical', [
+                'source'     => 'GBP',
+                'currencies' => 'EUR,USD',
+                'date'       => '2021-10-25',
             ]])
             ->andReturn($this->mockResponseForYesterdayForMultipleCurrencies());
 
         self::assertSame(
             [
-                'EUR' => '118.61760000',
-                'USD' => '137.73040000',
+                'GBPEUR' => '118.61760000',
+                'GBPUSD' => '137.73040000',
             ],
             (new ExchangeRate($requestBuilderMock))->convert(100, 'GBP', ['EUR', 'USD'], Carbon::create(2021, 10, 25)),
         );
@@ -107,15 +109,13 @@ class ConvertTest extends TestCase
     private function mockResponseForTodayForSingleCurrency(): array
     {
         return [
-            'motd'    => [
-                'msg' => 'If you or your company use this project or like what we doing, please consider backing us so we can continue maintaining and evolving this project.',
-                'url' => 'https://exchangerate.host/#/donate',
-            ],
-            'success' => true,
-            'base'    => 'GBP',
-            'date'    => '2021-10-26',
-            'rates'   => [
-                'EUR' => 1.186864,
+            'success'   => true,
+            'terms'     => 'https://exchangerate.host/terms',
+            'privacy'   => 'https://exchangerate.host/privacy',
+            'timestamp' => 1635246000,
+            'source'    => 'GBP',
+            'quotes'    => [
+                'GBPEUR' => 1.186864,
             ],
         ];
     }
@@ -123,16 +123,15 @@ class ConvertTest extends TestCase
     private function mockResponseForYesterdayForSingleCurrency(): array
     {
         return [
-            'motd'       => [
-                'msg' => 'If you or your company use this project or like what we doing, please consider backing us so we can continue maintaining and evolving this project.',
-                'url' => 'https://exchangerate.host/#/donate',
-            ],
             'success'    => true,
+            'terms'      => 'https://exchangerate.host/terms',
+            'privacy'    => 'https://exchangerate.host/privacy',
             'historical' => true,
-            'base'       => 'GBP',
             'date'       => '2021-10-25',
-            'rates'      => [
-                'EUR' => 1.186176,
+            'timestamp'  => 1635246000,
+            'source'     => 'GBP',
+            'quotes'     => [
+                'GBPEUR' => 1.186176,
             ],
         ];
     }
@@ -140,16 +139,14 @@ class ConvertTest extends TestCase
     private function mockResponseForTodayForMultipleCurrencies(): array
     {
         return [
-            'motd'    => [
-                'msg' => 'If you or your company use this project or like what we doing, please consider backing us so we can continue maintaining and evolving this project.',
-                'url' => 'https://exchangerate.host/#/donate',
-            ],
-            'success' => true,
-            'base'    => 'GBP',
-            'date'    => '2021-10-26',
-            'rates'   => [
-                'EUR' => 1.186864,
-                'USD' => 1.376395,
+            'success'   => true,
+            'terms'     => 'https://exchangerate.host/terms',
+            'privacy'   => 'https://exchangerate.host/privacy',
+            'timestamp' => 1635246000,
+            'source'    => 'GBP',
+            'quotes'    => [
+                'GBPEUR' => 1.186864,
+                'GBPUSD' => 1.376395,
             ],
         ];
     }
@@ -157,17 +154,16 @@ class ConvertTest extends TestCase
     private function mockResponseForYesterdayForMultipleCurrencies(): array
     {
         return [
-            'motd'       => [
-                'msg' => 'If you or your company use this project or like what we doing, please consider backing us so we can continue maintaining and evolving this project.',
-                'url' => 'https://exchangerate.host/#/donate',
-            ],
             'success'    => true,
+            'terms'      => 'https://exchangerate.host/terms',
+            'privacy'    => 'https://exchangerate.host/privacy',
             'historical' => true,
-            'base'       => 'GBP',
             'date'       => '2021-10-25',
-            'rates'      => [
-                'EUR' => 1.186176,
-                'USD' => 1.377304,
+            'timestamp'  => 1635246000,
+            'source'     => 'GBP',
+            'quotes'     => [
+                'GBPEUR' => 1.186176,
+                'GBPUSD' => 1.377304,
             ],
         ];
     }

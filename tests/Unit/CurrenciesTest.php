@@ -14,7 +14,7 @@ class CurrenciesTest extends TestCase
         $requestBuilderMock = \Mockery::mock(RequestBuilder::class);
 
         $requestBuilderMock->shouldReceive('makeRequest')
-            ->withArgs(['symbols'])
+            ->withArgs(['list'])
             ->once()
             ->andReturn($this->mockResponse());
 
@@ -27,24 +27,13 @@ class CurrenciesTest extends TestCase
     private function mockResponse(): array
     {
         return [
-            'motd'    => [
-                'msg' => 'If you or your company use this project or like what we doing, please consider backing us so we can continue maintaining and evolving this project.',
-                'url' => 'https://exchangerate.host/#/donate',
-            ],
-            'success' => 1,
-            'symbols' => [
-                'AED' => [
-                    'description' => 'United Arab Emirates Dirham',
-                    'code'        => 'AED',
-                ],
-                'AFN' => [
-                    'description' => 'Afghan Afghani',
-                    'code'        => 'AFN',
-                ],
-                'ALL' => [
-                    'description' => 'Albanian Lek',
-                    'code'        => 'ALL',
-                ],
+            'success'    => true,
+            'terms'      => 'https://exchangerate.host/terms',
+            'privacy'    => 'https://exchangerate.host/privacy',
+            'currencies' => [
+                'AED' => 'United Arab Emirates Dirham',
+                'AFN' => 'Afghan Afghani',
+                'ALL' => 'Albanian Lek',
             ],
         ];
     }
@@ -52,18 +41,9 @@ class CurrenciesTest extends TestCase
     private function expectedResponse(): array
     {
         return [
-            'AED' => [
-                'description' => 'United Arab Emirates Dirham',
-                'code'        => 'AED',
-            ],
-            'AFN' => [
-                'description' => 'Afghan Afghani',
-                'code'        => 'AFN',
-            ],
-            'ALL' => [
-                'description' => 'Albanian Lek',
-                'code'        => 'ALL',
-            ],
+            'AED' => 'United Arab Emirates Dirham',
+            'AFN' => 'Afghan Afghani',
+            'ALL' => 'Albanian Lek',
         ];
     }
 }
