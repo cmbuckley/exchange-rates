@@ -15,6 +15,7 @@
 - [Overview](#overview)
 - [Installation](#installation)
 - [Usage](#usage)
+    - [Setup](#setup)
     - [Methods](#methods)
         - [Exchange Rate](#exchange-rate)
             - [Getting the Rate Between Two Currencies](#getting-the-rate-between-two-currencies)
@@ -53,6 +54,32 @@ The package has been developed and tested to work with the following minimum req
 - PHP 8.0
 
 ## Usage
+
+### Setup
+
+The [exchangerate.host](https://exchangerate.host) service requires an access key, which you can sign up and request
+for free. You need to add a payment card to get the key, but you won't be charged if you're on the free plan. You are
+resticted to 100 requests per month on the free plan.
+
+Set the API key as follows:
+
+```php
+$exchangeRates = new \AshAllenDesign\ExchangeRates\Classes\ExchangeRate();
+
+$exchangeRates->setServiceOptions([
+    'access_key' => '123abc',
+]);
+```
+
+The API also does not support HTTPS on the free plan. If you are on a paid plan and want to use HTTPS, pass the `tls`
+service option:
+
+```php
+$exchangeRates->setServiceOptions([
+    'access_key' => '123abc',
+    'tls'        => true,
+]);
+```
 
 ### Methods
 
@@ -97,8 +124,8 @@ $exchangeRates = new \AshAllenDesign\ExchangeRates\Classes\ExchangeRate();
 $result = $exchangeRates->exchangeRate('GBP', ['EUR', 'USD']);
 
 // $result: [
-//     'EUR' => '1.10086',
-//     'USD' => '1.25622'
+//     'GBPEUR' => '1.10086',
+//     'GBPUSD' => '1.25622'
 // ];
 ```
 
@@ -122,13 +149,13 @@ $result = $exchangeRates->exchangeRateBetweenDateRange(
 
 // $result: [
 //     '2020-07-07' => [
-//         'EUR' => '1.1092623405',
+//         'GBPEUR' => '1.1092623405',
 //     ],
 //     '2020-07-08' => [
-//         'EUR' => '1.1120625424',
+//         'GBPEUR' => '1.1120625424',
 //     ],
 //     '2020-07-09' => [
-//         'EUR' => '1.1153867604',
+//         'GBPEUR' => '1.1153867604',
 //     ],
 // ];
 ```
@@ -151,16 +178,16 @@ $result = $exchangeRates->exchangeRateBetweenDateRange(
 
 // $result: [
 //     '2020-07-07' => [
-//         'EUR' => '1.1092623405',
-//         'USD' => '1.2523571825',
+//         'GBPEUR' => '1.1092623405',
+//         'GBPUSD' => '1.2523571825',
 //      ],
 //     '2020-07-08' => [
 //         'EUR' => '1.1120625424',
-//         'USD' => '1.2550737853',
+//         'GBPUSD' => '1.2550737853',
 //      ],
 //     '2020-07-09' => [
 //         'EUR' => '1.1153867604',
-//         'USD' => '1.2650716636',
+//         'GBPUSD' => '1.2650716636',
 //      ],
 // ];
 ```
@@ -202,8 +229,8 @@ $result = $exchangeRates->convert(
 );
 
 // $result: [
-//     'EUR' => '110.15884906',
-//     'USD' => '125.30569081'
+//     'GBPEUR' => '110.15884906',
+//     'GBPUSD' => '125.30569081'
 // ];
 ```
 
@@ -220,7 +247,7 @@ The example below shows how to convert £1 'GBP' to 'EUR' using the exchange rat
 ```php
 $exchangeRates = new \AshAllenDesign\ExchangeRates\Classes\ExchangeRate();
 
-$exchangeRates->convertBetweenDateRange(
+$result = $exchangeRates->convertBetweenDateRange(
     100,
     'GBP',
     'EUR',
@@ -230,13 +257,13 @@ $exchangeRates->convertBetweenDateRange(
 
 // $result: [
 //     '2020-07-07' => [
-//         'EUR' => '110.92623405',
+//         'GBPEUR' => '110.92623405',
 //      ],
 //     '2020-07-08' => [
-//         'EUR' => '111.20625424',
+//         'GBPEUR' => '111.20625424',
 //      ],
 //     '2020-07-09' => [
-//         'EUR' => '111.53867604',
+//         'GBPEUR' => '111.53867604',
 //      ],
 // ];
 ```
@@ -249,20 +276,26 @@ The example below show how to convert £1 'GBP' to 'EUR' and 'USD' at the past t
 
 ```php
 $exchangeRates = new ExchangeRate();
-$result = $exchangeRates->exchangeRateBetweenDateRange('GBP', ['EUR', 'USD'], Carbon::now()->subDays(3), Carbon::now());
+$result = $exchangeRates->convertBetweenDateRange(
+    100,
+    'GBP',
+    ['EUR', 'USD'],
+    Carbon::now()->subDays(3),
+    Carbon::now()
+);
 
 // $result: [
 //     '2020-07-07' => [
-//         'EUR' => '110.92623405',
-//         'USD' => '125.23571825',
+//         'GBPEUR' => '110.92623405',
+//         'GBPUSD' => '125.23571825',
 //      ],
 //     '2020-07-08' => [
-//         'EUR' => '111.20625424',
-//         'USD' => '125.50737853',
+//         'GBPEUR' => '111.20625424',
+//         'GBPUSD' => '125.50737853',
 //      ],
 //     '2020-07-09' => [
-//         'EUR' => '111.53867604',
-//         'USD' => '126.50716636',
+//         'GBPEUR' => '111.53867604',
+//         'GBPUSD' => '126.50716636',
 //      ],
 // ];
 ```
