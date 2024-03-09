@@ -18,8 +18,19 @@ class ExchangeRate
     }
 
     /**
+     * Set options on the request builder.
+     *
+     * @param string[] $options
+     */
+    public function setServiceOptions(array $options): void
+    {
+        $this->requestBuilder->setOptions($options);
+    }
+
+    /**
      * Get all the available supported currencies.
      *
+     * @throws \AshAllenDesign\ExchangeRates\Exceptions\ServiceException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
      *
@@ -38,6 +49,7 @@ class ExchangeRate
      * @param string|array        $to
      * @param \Carbon\Carbon|null $date
      *
+     * @throws \AshAllenDesign\ExchangeRates\Exceptions\ServiceException
      * @throws \AshAllenDesign\ExchangeRates\Exceptions\InvalidDateException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
@@ -81,6 +93,7 @@ class ExchangeRate
      * @param \Carbon\Carbon $startDate
      * @param \Carbon\Carbon $endDate
      *
+     * @throws \AshAllenDesign\ExchangeRates\Exceptions\ServiceException
      * @throws \AshAllenDesign\ExchangeRates\Exceptions\InvalidDateException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
@@ -94,13 +107,13 @@ class ExchangeRate
         $symbols = is_string($to) ? $to : implode(',', $to);
 
         $queryParams = [
-            'base'       => $from,
+            'source'     => $from,
+            'currencies' => $symbols,
             'start_date' => $startDate->format('Y-m-d'),
             'end_date'   => $endDate->format('Y-m-d'),
-            'symbols'    => $symbols,
         ];
 
-        return $this->requestBuilder->makeRequest('/timeseries', $queryParams)['rates'];
+        return $this->requestBuilder->makeRequest('timeframe', $queryParams)['quotes'];
     }
 
     /**
@@ -112,6 +125,7 @@ class ExchangeRate
      * @param string|array        $to
      * @param \Carbon\Carbon|null $date
      *
+     * @throws \AshAllenDesign\ExchangeRates\Exceptions\ServiceException
      * @throws \AshAllenDesign\ExchangeRates\Exceptions\InvalidDateException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
@@ -149,6 +163,7 @@ class ExchangeRate
      * @param \Carbon\Carbon $startDate
      * @param \Carbon\Carbon $endDate
      *
+     * @throws \AshAllenDesign\ExchangeRates\Exceptions\ServiceException
      * @throws \AshAllenDesign\ExchangeRates\Exceptions\InvalidDateException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException

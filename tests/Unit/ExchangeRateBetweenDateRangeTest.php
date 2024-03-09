@@ -17,11 +17,11 @@ class ExchangeRateBetweenDateRangeTest extends TestCase
 
         $requestBuilderMock->shouldReceive('makeRequest')
             ->once()
-            ->withArgs(['/timeseries', [
-                'base'       => 'GBP',
+            ->withArgs(['timeframe', [
+                'source'     => 'GBP',
+                'currencies' => 'EUR',
                 'start_date' => '2021-10-19',
                 'end_date'   => '2021-10-25',
-                'symbols'    => 'EUR',
             ]])
             ->andReturn($this->mockResponseForSingleCurrencyPair());
 
@@ -43,11 +43,11 @@ class ExchangeRateBetweenDateRangeTest extends TestCase
 
         $requestBuilderMock->shouldReceive('makeRequest')
             ->once()
-            ->withArgs(['/timeseries', [
-                'base'       => 'GBP',
+            ->withArgs(['timeframe', [
+                'source'     => 'GBP',
+                'currencies' => 'EUR,USD',
                 'start_date' => '2021-10-19',
                 'end_date'   => '2021-10-25',
-                'symbols'    => 'EUR,USD',
             ]])
             ->andReturn($this->mockResponseForMultipleCurrencies());
 
@@ -101,36 +101,34 @@ class ExchangeRateBetweenDateRangeTest extends TestCase
     private function mockResponseForSingleCurrencyPair(): array
     {
         return [
-            'motd'       => [
-                'msg' => 'If you or your company use this project or like what we doing, please consider backing us so we can continue maintaining and evolving this project.',
-                'url' => 'https://exchangerate.host/#/donate',
-            ],
             'success'    => true,
-            'timeseries' => true,
-            'base'       => 'GBP',
+            'terms'      => 'https://exchangerate.host/terms',
+            'privacy'    => 'https://exchangerate.host/privacy',
+            'timeframe'  => true,
             'start_date' => '2021-10-19',
             'end_date'   => '2021-10-25',
-            'rates'      => [
+            'source'     => 'GBP',
+            'quotes'     => [
                 '2021-10-19' => [
-                    'EUR' => 1.186206,
+                    'GBPEUR' => 1.186206,
                 ],
                 '2021-10-20' => [
-                    'EUR' => 1.18663,
+                    'GBPEUR' => 1.18663,
                 ],
                 '2021-10-21' => [
-                    'EUR' => 1.18649,
+                    'GBPEUR' => 1.18649,
                 ],
                 '2021-10-22' => [
-                    'EUR' => 1.181421,
+                    'GBPEUR' => 1.181421,
                 ],
                 '2021-10-23' => [
-                    'EUR' => 1.181848,
+                    'GBPEUR' => 1.181848,
                 ],
                 '2021-10-24' => [
-                    'EUR' => 1.1813,
+                    'GBPEUR' => 1.1813,
                 ],
                 '2021-10-25' => [
-                    'EUR' => 1.186176,
+                    'GBPEUR' => 1.186176,
                 ],
             ],
         ];
@@ -139,43 +137,41 @@ class ExchangeRateBetweenDateRangeTest extends TestCase
     private function mockResponseForMultipleCurrencies(): array
     {
         return [
-            'motd'       => [
-                'msg' => 'If you or your company use this project or like what we doing, please consider backing us so we can continue maintaining and evolving this project.',
-                'url' => 'https://exchangerate.host/#/donate',
-            ],
             'success'    => true,
-            'timeseries' => true,
-            'base'       => 'GBP',
+            'terms'      => 'https://exchangerate.host/terms',
+            'privacy'    => 'https://exchangerate.host/privacy',
+            'timeframe'  => true,
             'start_date' => '2021-10-19',
             'end_date'   => '2021-10-25',
-            'rates'      => [
+            'source'     => 'GBP',
+            'quotes'     => [
                 '2021-10-19' => [
-                    'EUR' => 1.186206,
-                    'USD' => 1.381227,
+                    'GBPEUR' => 1.186206,
+                    'GBPUSD' => 1.381227,
                 ],
                 '2021-10-20' => [
-                    'EUR' => 1.18663,
-                    'USD' => 1.382278,
+                    'GBPEUR' => 1.18663,
+                    'GBPUSD' => 1.382278,
                 ],
                 '2021-10-21' => [
-                    'EUR' => 1.18649,
-                    'USD' => 1.378447,
+                    'GBPEUR' => 1.18649,
+                    'GBPUSD' => 1.378447,
                 ],
                 '2021-10-22' => [
-                    'EUR' => 1.181421,
-                    'USD' => 1.375148,
+                    'GBPEUR' => 1.181421,
+                    'GBPUSD' => 1.375148,
                 ],
                 '2021-10-23' => [
-                    'EUR' => 1.181848,
-                    'USD' => 1.375865,
+                    'GBPEUR' => 1.181848,
+                    'GBPUSD' => 1.375865,
                 ],
                 '2021-10-24' => [
-                    'EUR' => 1.1813,
-                    'USD' => 1.375172,
+                    'GBPEUR' => 1.1813,
+                    'GBPUSD' => 1.375172,
                 ],
                 '2021-10-25' => [
-                    'EUR' => 1.186176,
-                    'USD' => 1.377304,
+                    'GBPEUR' => 1.186176,
+                    'GBPUSD' => 1.377304,
                 ],
             ],
         ];
@@ -185,25 +181,25 @@ class ExchangeRateBetweenDateRangeTest extends TestCase
     {
         return [
             '2021-10-19' => [
-                'EUR' => '1.186206',
+                'GBPEUR' => '1.186206',
             ],
             '2021-10-20' => [
-                'EUR' => '1.18663',
+                'GBPEUR' => '1.18663',
             ],
             '2021-10-21' => [
-                'EUR' => '1.18649',
+                'GBPEUR' => '1.18649',
             ],
             '2021-10-22' => [
-                'EUR' => '1.181421',
+                'GBPEUR' => '1.181421',
             ],
             '2021-10-23' => [
-                'EUR' => '1.181848',
+                'GBPEUR' => '1.181848',
             ],
             '2021-10-24' => [
-                'EUR' => '1.1813',
+                'GBPEUR' => '1.1813',
             ],
             '2021-10-25' => [
-                'EUR' => '1.186176',
+                'GBPEUR' => '1.186176',
             ],
         ];
     }
@@ -212,32 +208,32 @@ class ExchangeRateBetweenDateRangeTest extends TestCase
     {
         return [
             '2021-10-19' => [
-                'EUR' => '1.186206',
-                'USD' => '1.381227',
+                'GBPEUR' => '1.186206',
+                'GBPUSD' => '1.381227',
             ],
             '2021-10-20' => [
-                'EUR' => '1.18663',
-                'USD' => '1.382278',
+                'GBPEUR' => '1.18663',
+                'GBPUSD' => '1.382278',
             ],
             '2021-10-21' => [
-                'EUR' => '1.18649',
-                'USD' => '1.378447',
+                'GBPEUR' => '1.18649',
+                'GBPUSD' => '1.378447',
             ],
             '2021-10-22' => [
-                'EUR' => '1.181421',
-                'USD' => '1.375148',
+                'GBPEUR' => '1.181421',
+                'GBPUSD' => '1.375148',
             ],
             '2021-10-23' => [
-                'EUR' => '1.181848',
-                'USD' => '1.375865',
+                'GBPEUR' => '1.181848',
+                'GBPUSD' => '1.375865',
             ],
             '2021-10-24' => [
-                'EUR' => '1.1813',
-                'USD' => '1.375172',
+                'GBPEUR' => '1.1813',
+                'GBPUSD' => '1.375172',
             ],
             '2021-10-25' => [
-                'EUR' => '1.186176',
-                'USD' => '1.377304',
+                'GBPEUR' => '1.186176',
+                'GBPUSD' => '1.377304',
             ],
         ];
     }
