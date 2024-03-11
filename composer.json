@@ -1,8 +1,9 @@
 {
-    "name": "ashallendesign/exchange-rates",
+    "name": "cmbuckley/exchange-rates",
     "description": "A package for interacting with the exchangerate.host API",
     "type": "library",
-    "homepage": "https://github.com/ash-jc-allen/exchange-rates",
+    "version": "2.0.0",
+    "homepage": "https://github.com/cmbuckley/exchange-rates",
     "license": "MIT",
     "autoload": {
         "psr-4": {
@@ -16,24 +17,28 @@
     },
     "authors": [
         {
+            "name": "Chris Buckley",
+            "email": "chris@cmbuckley.co.uk.co.uk"
+        },
+        {
             "name": "Ash Allen",
             "email": "mail@ashallendesign.co.uk"
         }
     ],
     "keywords": [
-        "ashallendesign",
-        "exchange-rates",
-        "php"
+        "exchange rate",
+        "exchangerate",
+        "exchangerate.host"
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.2",
         "guzzlehttp/guzzle": "^7.0",
-        "nesbot/carbon": "^2.0",
         "ext-json": "*",
         "ext-bcmath": "*"
     },
     "require-dev": {
         "mockery/mockery": "^1.0",
+        "nesbot/carbon": "^3.0",
         "phpunit/phpunit": "^9.0",
         "symfony/var-dumper": "^5.3"
     },

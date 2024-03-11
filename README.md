@@ -3,11 +3,11 @@
 </p>
 
 <p align="center">
-<a href="https://packagist.org/packages/ashallendesign/exchange-rates"><img src="https://img.shields.io/packagist/v/ashallendesign/exchange-rates.svg?style=flat-square" alt="Latest Version on Packagist"></a>
-<a href="https://github.com/ash-jc-allen/exchange-rates"><img src="https://img.shields.io/github/workflow/status/ash-jc-allen/exchange-rates/run-tests?style=flat-square" alt="Build Status"></a>
-<a href="https://packagist.org/packages/ashallendesign/exchange-rates"><img src="https://img.shields.io/packagist/dt/ashallendesign/exchange-rates.svg?style=flat-square" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/ashallendesign/exchange-rates"><img src="https://img.shields.io/packagist/php-v/ashallendesign/exchange-rates?style=flat-square" alt="PHP from Packagist"></a>
-<a href="https://github.com/ash-jc-allen/short-url/blob/master/LICENSE"><img src="https://img.shields.io/github/license/ash-jc-allen/exchange-rates?style=flat-square" alt="GitHub license"></a>
+<a href="https://packagist.org/packages/cmbuckley/exchange-rates"><img src="https://img.shields.io/packagist/v/cmbuckley/exchange-rates.svg?style=flat-square" alt="Latest Version on Packagist"></a>
+<a href="https://github.com/cmbuckley/exchange-rates"><img src="https://img.shields.io/github/actions/workflow/status/cmbuckley/exchange-rates/ci-tests?style=flat-square" alt="Build Status"></a>
+<a href="https://packagist.org/packages/cmbuckley/exchange-rates"><img src="https://img.shields.io/packagist/dt/cmbuckley/exchange-rates.svg?style=flat-square" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/cmbuckley/exchange-rates"><img src="https://img.shields.io/packagist/php-v/cmbuckley/exchange-rates?style=flat-square" alt="PHP from Packagist"></a>
+<a href="https://github.com/cmbuckley/exchange-rates/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/cmbuckley/exchange-rates?style=flat-square" alt="GitHub license"></a>
 </p>
 
 ## Table of Contents
@@ -46,7 +46,7 @@ Exchange Rates is a simple PHP package used for interacting with the [exchangera
 You can install the package via Composer:
 
 ```bash
-composer require ashallendesign/exchange-rates
+composer require cmbuckley/exchange-rates
 ```
 
 The package has been developed and tested to work with the following minimum requirements:
@@ -309,10 +309,6 @@ To run the tests for the package, you can use the following command:
 composer test
 ```
 
-## Security
-
-If you find any security related issues, please contact me directly at [mail@ashallendesign.co.uk](mailto:mail@ashallendesign.co.uk) to report it.
-
 ## Contribution
 
 If you wish to make any changes or improvements to the package, feel free to make a pull request.
@@ -326,9 +322,10 @@ To contribute to this library, please use the following guidelines before submit
 
 ## Credits
 
+- [Chris Buckley](https://cmbuckley.co.uk)
 - [Ash Allen](https://ashallendesign.co.uk)
 - [Jess Pickup](https://jesspickup.co.uk) (Logo)
-- [All Contributors](https://github.com/ash-jc-allen/exchange-rates/graphs/contributors)
+- [All Contributors](https://github.com/cmbuckley/exchange-rates/graphs/contributors)
 
 ## Changelog
 
