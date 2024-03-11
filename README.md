@@ -4,7 +4,7 @@
 
 <p align="center">
 <a href="https://packagist.org/packages/cmbuckley/exchange-rates"><img src="https://img.shields.io/packagist/v/cmbuckley/exchange-rates.svg?style=flat-square" alt="Latest Version on Packagist"></a>
-<a href="https://github.com/cmbuckley/exchange-rates"><img src="https://img.shields.io/github/actions/workflow/status/cmbuckley/exchange-rates/ci-tests?style=flat-square" alt="Build Status"></a>
+<a href="https://github.com/cmbuckley/exchange-rates"><img src="https://img.shields.io/github/actions/workflow/status/cmbuckley/exchange-rates/ci-tests.yml?style=flat-square" alt="Build Status"></a>
 <a href="https://packagist.org/packages/cmbuckley/exchange-rates"><img src="https://img.shields.io/packagist/dt/cmbuckley/exchange-rates.svg?style=flat-square" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/cmbuckley/exchange-rates"><img src="https://img.shields.io/packagist/php-v/cmbuckley/exchange-rates?style=flat-square" alt="PHP from Packagist"></a>
 <a href="https://github.com/cmbuckley/exchange-rates/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/cmbuckley/exchange-rates?style=flat-square" alt="GitHub license"></a>
