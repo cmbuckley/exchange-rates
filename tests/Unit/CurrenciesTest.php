@@ -1,10 +1,10 @@
 <?php
 
-namespace AshAllenDesign\ExchangeRates\Tests\Unit;
+namespace StarSquare\ExchangeRates\Tests\Unit;
 
-use AshAllenDesign\ExchangeRates\Classes\ExchangeRate;
-use AshAllenDesign\ExchangeRates\Classes\RequestBuilder;
-use AshAllenDesign\ExchangeRates\Tests\TestCase;
+use StarSquare\ExchangeRates\Classes\ExchangeRate;
+use StarSquare\ExchangeRates\Classes\RequestBuilder;
+use StarSquare\ExchangeRates\Tests\TestCase;
 
 class CurrenciesTest extends TestCase
 {

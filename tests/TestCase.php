@@ -1,6 +1,6 @@
 <?php
 
-namespace AshAllenDesign\ExchangeRates\Tests;
+namespace StarSquare\ExchangeRates\Tests;
 
 class TestCase extends \PHPUnit\Framework\TestCase
 {

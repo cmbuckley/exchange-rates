@@ -6,12 +6,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "AshAllenDesign\\ExchangeRates\\": "src/"
+            "StarSquare\\ExchangeRates\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "AshAllenDesign\\ExchangeRates\\Tests\\": "tests/"
+            "StarSquare\\ExchangeRates\\Tests\\": "tests/"
         }
     },
     "authors": [

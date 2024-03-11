@@ -1,6 +1,6 @@
 <?php
 
-namespace AshAllenDesign\ExchangeRates\Exceptions;
+namespace StarSquare\ExchangeRates\Exceptions;
 
 use Exception;
 

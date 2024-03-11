@@ -1,8 +1,8 @@
 <?php
 
-namespace AshAllenDesign\ExchangeRates\Classes;
+namespace StarSquare\ExchangeRates\Classes;
 
-use Carbon\Carbon;
+use DateTimeInterface;
 use GuzzleHttp\Client;
 
 class ExchangeRate
@@ -30,7 +30,7 @@ class ExchangeRate
     /**
      * Get all the available supported currencies.
      *
-     * @throws \AshAllenDesign\ExchangeRates\Exceptions\ServiceException
+     * @throws \StarSquare\ExchangeRates\Exceptions\ServiceException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
      *
@@ -45,18 +45,18 @@ class ExchangeRate
      * Find and return the exchange rate between currencies. If no date is
      * passed as the third parameter, today's exchange rate will be used.
      *
-     * @param string              $from
-     * @param string|array        $to
-     * @param \Carbon\Carbon|null $date
+     * @param string                  $from
+     * @param string|array            $to
+     * @param \DateTimeInterface|null $date
      *
-     * @throws \AshAllenDesign\ExchangeRates\Exceptions\ServiceException
-     * @throws \AshAllenDesign\ExchangeRates\Exceptions\InvalidDateException
+     * @throws \StarSquare\ExchangeRates\Exceptions\ServiceException
+     * @throws \StarSquare\ExchangeRates\Exceptions\InvalidDateException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
      *
      * @return string|array
      */
-    public function exchangeRate(string $from, string|array $to, Carbon $date = null): string|array
+    public function exchangeRate(string $from, string|array $to, DateTimeInterface $date = null): string|array
     {
         if ($date) {
             Validation::validateDate($date);
@@ -89,19 +89,19 @@ class ExchangeRate
      * Find and return the exchange rate between currencies between a given
      * date range.
      *
-     * @param string         $from
-     * @param string|array   $to
-     * @param \Carbon\Carbon $startDate
-     * @param \Carbon\Carbon $endDate
+     * @param string             $from
+     * @param string|array       $to
+     * @param \DateTimeInterface $startDate
+     * @param \DateTimeInterface $endDate
      *
-     * @throws \AshAllenDesign\ExchangeRates\Exceptions\ServiceException
-     * @throws \AshAllenDesign\ExchangeRates\Exceptions\InvalidDateException
+     * @throws \StarSquare\ExchangeRates\Exceptions\ServiceException
+     * @throws \StarSquare\ExchangeRates\Exceptions\InvalidDateException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
      *
      * @return array
      */
-    public function exchangeRateBetweenDateRange(string $from, string|array $to, Carbon $startDate, Carbon $endDate): array
+    public function exchangeRateBetweenDateRange(string $from, string|array $to, DateTimeInterface $startDate, DateTimeInterface $endDate): array
     {
         Validation::validateStartAndEndDates($startDate, $endDate);
 
@@ -121,19 +121,19 @@ class ExchangeRate
      * Convert a monetary value from one currency to another. If no date is
      * passed as the third parameter, today's exchange rate will be used.
      *
-     * @param int                 $amount
-     * @param string              $from
-     * @param string|array        $to
-     * @param \Carbon\Carbon|null $date
+     * @param int                     $amount
+     * @param string                  $from
+     * @param string|array            $to
+     * @param \DateTimeInterface|null $date
      *
-     * @throws \AshAllenDesign\ExchangeRates\Exceptions\ServiceException
-     * @throws \AshAllenDesign\ExchangeRates\Exceptions\InvalidDateException
+     * @throws \StarSquare\ExchangeRates\Exceptions\ServiceException
+     * @throws \StarSquare\ExchangeRates\Exceptions\InvalidDateException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
      *
      * @return string|array
      */
-    public function convert(int $amount, string $from, string|array $to, Carbon $date = null): string|array
+    public function convert(int $amount, string $from, string|array $to, DateTimeInterface $date = null): string|array
     {
         if ($date) {
             Validation::validateDate($date);
@@ -158,20 +158,20 @@ class ExchangeRate
      * Convert monetary values from one currency to another using the exchange
      * rates between a given date range.
      *
-     * @param int            $amount
-     * @param string         $from
-     * @param string|array   $to
-     * @param \Carbon\Carbon $startDate
-     * @param \Carbon\Carbon $endDate
+     * @param int                $amount
+     * @param string             $from
+     * @param string|array       $to
+     * @param \DateTimeInterface $startDate
+     * @param \DateTimeInterface $endDate
      *
-     * @throws \AshAllenDesign\ExchangeRates\Exceptions\ServiceException
-     * @throws \AshAllenDesign\ExchangeRates\Exceptions\InvalidDateException
+     * @throws \StarSquare\ExchangeRates\Exceptions\ServiceException
+     * @throws \StarSquare\ExchangeRates\Exceptions\InvalidDateException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
      *
      * @return array
      */
-    public function convertBetweenDateRange(int $amount, string $from, string|array $to, Carbon $startDate, Carbon $endDate): array
+    public function convertBetweenDateRange(int $amount, string $from, string|array $to, DateTimeInterface $startDate, DateTimeInterface $endDate): array
     {
         $to = is_array($to) ? $to : [$to];
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace AshAllenDesign\ExchangeRates\Tests\Unit;
+namespace StarSquare\ExchangeRates\Tests\Unit;
 
-use AshAllenDesign\ExchangeRates\Classes\ExchangeRate;
-use AshAllenDesign\ExchangeRates\Classes\RequestBuilder;
-use AshAllenDesign\ExchangeRates\Exceptions\InvalidDateException;
-use AshAllenDesign\ExchangeRates\Tests\TestCase;
+use StarSquare\ExchangeRates\Classes\ExchangeRate;
+use StarSquare\ExchangeRates\Classes\RequestBuilder;
+use StarSquare\ExchangeRates\Exceptions\InvalidDateException;
+use StarSquare\ExchangeRates\Tests\TestCase;
 use Carbon\Carbon;
 
 class ConvertTest extends TestCase

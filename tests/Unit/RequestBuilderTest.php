@@ -1,10 +1,10 @@
 <?php
 
-namespace AshAllenDesign\ExchangeRates\Tests\Unit;
+namespace StarSquare\ExchangeRates\Tests\Unit;
 
-use AshAllenDesign\ExchangeRates\Classes\RequestBuilder;
-use AshAllenDesign\ExchangeRates\Exceptions\ServiceException;
-use AshAllenDesign\ExchangeRates\Tests\TestCase;
+use StarSquare\ExchangeRates\Classes\RequestBuilder;
+use StarSquare\ExchangeRates\Exceptions\ServiceException;
+use StarSquare\ExchangeRates\Tests\TestCase;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;

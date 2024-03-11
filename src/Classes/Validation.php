@@ -1,42 +1,46 @@
 <?php
 
-namespace AshAllenDesign\ExchangeRates\Classes;
+namespace StarSquare\ExchangeRates\Classes;
 
-use AshAllenDesign\ExchangeRates\Exceptions\InvalidDateException;
-use Carbon\Carbon;
+use DateTime;
+use DateTimeInterface;
+use StarSquare\ExchangeRates\Exceptions\InvalidDateException;
 
 class Validation
 {
     /**
-     * @param Carbon $from
-     * @param Carbon $to
+     * @param \DateTimeInterface $from
+     * @param \DateTimeInterface $to
      *
      * @throws InvalidDateException
      */
-    public static function validateStartAndEndDates(Carbon $from, Carbon $to): void
+    public static function validateStartAndEndDates(DateTimeInterface $from, DateTimeInterface $to): void
     {
         self::validateDate($from);
         self::validateDate($to);
 
-        if ($from->isAfter($to)) {
+        if ($from > $to) {
             throw new InvalidDateException('The \'from\' date must be before the \'to\' date.');
         }
     }
 
     /**
-     * @param Carbon $date
+     * @param \DateTimeInterface $date
      *
      * @throws InvalidDateException
      */
-    public static function validateDate(Carbon $date): void
+    public static function validateDate(DateTimeInterface $date): void
     {
-        if (!$date->isPast()) {
+        $today = new DateTime();
+        $today->setTime(0, 0);
+
+        if ($date > $today) {
             throw new InvalidDateException('The date must be in the past.');
         }
 
-        $earliestPossibleDate = Carbon::createFromDate(1999, 1, 4)->startOfDay();
+        $earliestPossibleDate = new DateTime('1999-01-04');
 
-        if ($date->isBefore($earliestPossibleDate)) {
+        if ($date < $earliestPossibleDate) {
             throw new InvalidDateException('The date cannot be before 4th January 1999.');
         }
     }

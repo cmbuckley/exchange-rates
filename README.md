@@ -64,7 +64,9 @@ resticted to 100 requests per month on the free plan.
 Set the API key as follows:
 
 ```php
-$exchangeRates = new \AshAllenDesign\ExchangeRates\Classes\ExchangeRate();
+use StarSquare\ExchangeRates\Classes\ExchangeRate;
+
+$exchangeRates = new ExchangeRate();
 
 $exchangeRates->setServiceOptions([
     'access_key' => '123abc',
@@ -87,7 +89,7 @@ $exchangeRates->setServiceOptions([
 To get the available currencies that are supported by the package, you can use the `->currencies()` method like so:
 
 ```php
-$exchangeRates = new \AshAllenDesign\ExchangeRates\Classes\ExchangeRate();
+$exchangeRates = new ExchangeRate();
 
 $exchangeRates->currencies();
 ```
@@ -101,7 +103,7 @@ To get the exchange for one currency to another, you can use the `->exchangeRate
 The example below shows how to get the exchange rate from 'GBP' to 'EUR' for today:
 
 ```php
-$exchangeRates = new \AshAllenDesign\ExchangeRates\Classes\ExchangeRate();
+$exchangeRates = new ExchangeRate();
 
 $result = $exchangeRates->exchangeRate('GBP', 'EUR');
 
@@ -119,7 +121,7 @@ To do this, you can use `->exchangeRate()` method and pass an array of currency 
 The example below shows how to get the exchange rates from 'GBP' to 'EUR' and 'USD' for today.
 
 ```php
-$exchangeRates = new \AshAllenDesign\ExchangeRates\Classes\ExchangeRate();
+$exchangeRates = new ExchangeRate();
 
 $result = $exchangeRates->exchangeRate('GBP', ['EUR', 'USD']);
 
@@ -138,7 +140,7 @@ To get the exchange rates between two currencies between a given date range, you
 The example below shows how to get the exchange rates from 'GBP' to 'EUR' for the past 3 days:
 
 ```php
-$exchangeRates = new \AshAllenDesign\ExchangeRates\Classes\ExchangeRate();
+$exchangeRates = new ExchangeRate();
 
 $result = $exchangeRates->exchangeRateBetweenDateRange(
     'GBP',
@@ -167,7 +169,7 @@ To get the exchange rates for multiple currencies in one call, you can pass an a
 The example below shows how to get the exchange rates from 'GBP' to 'EUR' and 'USD' for the past 3 days:
 
 ```php
-$exchangeRates = new \AshAllenDesign\ExchangeRates\Classes\ExchangeRate();
+$exchangeRates = new ExchangeRate();
 
 $result = $exchangeRates->exchangeRateBetweenDateRange(
     'GBP',
@@ -203,7 +205,7 @@ Similar to how you can get the exchange rate from one currency to another, you c
 The example below shows how to convert £1 'GBP' to 'EUR' at today's exchange rate:
 
 ```php
-$exchangeRates = new \AshAllenDesign\ExchangeRates\Classes\ExchangeRate();
+$exchangeRates = new ExchangeRate();
 
 $result = $exchangeRates->convert(100, 'GBP', 'EUR');
 
@@ -219,13 +221,12 @@ You can also use the `->convert()` method to convert a monetary value from one c
 The example below show how to convert £1 'GBP' to 'EUR' and 'USD' at today's exchange rate:
 
 ```php
-$exchangeRates = new \AshAllenDesign\ExchangeRates\Classes\ExchangeRate();
+$exchangeRates = new ExchangeRate();
 
 $result = $exchangeRates->convert(
     100,
     'GBP',
-    ['EUR', 'USD'],
-    Carbon::now(),
+    ['EUR', 'USD']
 );
 
 // $result: [
@@ -245,14 +246,14 @@ Similar to getting the exchange rates between a date range, you can also get con
 The example below shows how to convert £1 'GBP' to 'EUR' using the exchange rates for the past 3 days:
 
 ```php
-$exchangeRates = new \AshAllenDesign\ExchangeRates\Classes\ExchangeRate();
+$exchangeRates = new ExchangeRate();
 
 $result = $exchangeRates->convertBetweenDateRange(
     100,
     'GBP',
     'EUR',
-    Carbon::now()->subDays(3),
-    Carbon::now()
+    (new DateTime)->sub(new DateInterval('P3D')),
+    new DateTime
 );
 
 // $result: [
@@ -280,8 +281,8 @@ $result = $exchangeRates->convertBetweenDateRange(
     100,
     'GBP',
     ['EUR', 'USD'],
-    Carbon::now()->subDays(3),
-    Carbon::now()
+    (new DateTime)->sub(new DateInterval('P3D')),
+    new DateTime
 );
 
 // $result: [

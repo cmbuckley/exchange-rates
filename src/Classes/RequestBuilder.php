@@ -1,8 +1,8 @@
 <?php
 
-namespace AshAllenDesign\ExchangeRates\Classes;
+namespace StarSquare\ExchangeRates\Classes;
 
-use AshAllenDesign\ExchangeRates\Exceptions\ServiceException;
+use StarSquare\ExchangeRates\Exceptions\ServiceException;
 use GuzzleHttp\Client;
 
 class RequestBuilder
@@ -34,7 +34,7 @@ class RequestBuilder
      * Make a HTTP request to the exchangerate.host API and return the
      * response body.
      *
-     * @throws \AshAllenDesign\ExchangeRates\Exceptions\ServiceException
+     * @throws \StarSquare\ExchangeRates\Exceptions\ServiceException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
      */
