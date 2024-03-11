@@ -12,8 +12,7 @@ use GuzzleHttp\Psr7\Response;
 
 class RequestBuilderTest extends TestCase
 {
-    /** @test */
-    public function service_url_should_respect_options(): void
+    public function testServiceUrlShouldRespectOptions(): void
     {
         $handler = new MockHandler([
             new Response(200, [], $this->mockSuccessResponse()),
@@ -55,8 +54,7 @@ class RequestBuilderTest extends TestCase
         );
     }
 
-    /** @test */
-    public function should_throw_exception_on_bad_response(): void
+    public function testShouldThrowExceptionOnBadResponse(): void
     {
         $handler = new MockHandler([
             new Response(200, [], $this->mockErrorResponse()),

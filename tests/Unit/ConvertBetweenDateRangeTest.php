@@ -10,8 +10,7 @@ use StarSquare\ExchangeRates\Tests\TestCase;
 
 class ConvertBetweenDateRangeTest extends TestCase
 {
-    /** @test */
-    public function converted_values_between_date_range_are_returned_for_a_single_currency(): void
+    public function testConvertedValuesBetweenDateRangeAreReturnedForASingleCurrency(): void
     {
         $requestBuilderMock = \Mockery::mock(RequestBuilder::class);
 
@@ -37,8 +36,7 @@ class ConvertBetweenDateRangeTest extends TestCase
         );
     }
 
-    /** @test */
-    public function converted_values_between_date_range_are_returned_for_multiple_currencies(): void
+    public function testConvertedValuesBetweenDateRangeAreReturnedForMultipleCurrencies(): void
     {
         $requestBuilderMock = \Mockery::mock(RequestBuilder::class);
 
@@ -64,8 +62,7 @@ class ConvertBetweenDateRangeTest extends TestCase
         );
     }
 
-    /** @test */
-    public function exception_is_thrown_if_the_start_date_parameter_passed_is_in_the_future(): void
+    public function testExceptionIsThrownIfTheStartDateParameterPassedIsInTheFuture(): void
     {
         $requestBuilderMock = \Mockery::mock(RequestBuilder::class);
 
@@ -76,8 +73,7 @@ class ConvertBetweenDateRangeTest extends TestCase
         (new ExchangeRate($requestBuilderMock))->convertBetweenDateRange(100, 'GBP', 'EUR', Carbon::now()->addDay(), Carbon::now()->addDays(2));
     }
 
-    /** @test */
-    public function exception_is_thrown_if_the_end_date_parameter_passed_is_in_the_future(): void
+    public function testExceptionIsThrownIfTheEndDateParameterPassedIsInTheFuture(): void
     {
         $requestBuilderMock = \Mockery::mock(RequestBuilder::class);
 
@@ -88,8 +84,7 @@ class ConvertBetweenDateRangeTest extends TestCase
         (new ExchangeRate($requestBuilderMock))->convertBetweenDateRange(100, 'GBP', 'EUR', Carbon::now()->subDay(), Carbon::now()->addDays(2));
     }
 
-    /** @test */
-    public function exception_is_thrown_if_the_end_date_is_before_the_start_date(): void
+    public function testExceptionIsThrownIfTheEndDateIsBeforeTheStartDate(): void
     {
         $requestBuilderMock = \Mockery::mock(RequestBuilder::class);
 

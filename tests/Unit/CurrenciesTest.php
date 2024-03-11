@@ -8,8 +8,7 @@ use StarSquare\ExchangeRates\Tests\TestCase;
 
 class CurrenciesTest extends TestCase
 {
-    /** @test */
-    public function currencies_are_returned(): void
+    public function testCurrenciesAreReturned(): void
     {
         $requestBuilderMock = \Mockery::mock(RequestBuilder::class);
 

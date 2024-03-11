@@ -10,8 +10,7 @@ use Carbon\Carbon;
 
 class ConvertTest extends TestCase
 {
-    /** @test */
-    public function converted_value_for_today_is_returned_if_no_date_parameter_is_passed(): void
+    public function testConvertedValueForTodayIsReturnedIfNoDateParameterIsPassed(): void
     {
         $requestBuilderMock = \Mockery::mock(RequestBuilder::class);
 
@@ -29,8 +28,7 @@ class ConvertTest extends TestCase
         );
     }
 
-    /** @test */
-    public function converted_value_in_the_past_is_returned_if_the_date_parameter_is_passed(): void
+    public function testConvertedValueInThePastIsReturnedIfTheDateParameterIsPassed(): void
     {
         $requestBuilderMock = \Mockery::mock(RequestBuilder::class);
 
@@ -51,8 +49,7 @@ class ConvertTest extends TestCase
         );
     }
 
-    /** @test */
-    public function converted_values_are_returned_for_today_with_multiple_currencies(): void
+    public function testConvertedValuesAreReturnedForTodayWithMultipleCurrencies(): void
     {
         $requestBuilderMock = \Mockery::mock(RequestBuilder::class);
 
@@ -71,8 +68,7 @@ class ConvertTest extends TestCase
         );
     }
 
-    /** @test */
-    public function converted_values_are_returned_for_yesterday_with_multiple_currencies(): void
+    public function testConvertedValuesAreReturnedForYesterdayWithMultipleCurrencies(): void
     {
         $requestBuilderMock = \Mockery::mock(RequestBuilder::class);
 
@@ -94,8 +90,7 @@ class ConvertTest extends TestCase
         );
     }
 
-    /** @test */
-    public function exception_is_thrown_if_the_date_parameter_passed_is_in_the_future(): void
+    public function testExceptionIsThrownIfTheDateParameterPassedIsInTheFuture(): void
     {
         $requestBuilderMock = \Mockery::mock(RequestBuilder::class);
 
