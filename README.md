@@ -17,24 +17,16 @@
 - [Usage](#usage)
     - [Setup](#setup)
     - [Methods](#methods)
-        - [Exchange Rate](#exchange-rate)
-            - [Getting the Rate Between Two Currencies](#getting-the-rate-between-two-currencies)
-            - [Getting the Rate Between More Than Two Currencies](#getting-the-rate-between-more-than-two-currencies)
+        - [Available Currencies](#available-currencies)
+        - [Exchange Rate Between Two Currencies](#exchange-rate-between-two-currencies)
+        - [Exchange Rate Between More Than Two Currencies](#exchange-rate-between-more-than-two-currencies)
         - [Exchange Rates Between Date Range](#exchange-rates-between-date-range)
-            - [Getting the Rates Between Two Currencies](#getting-the-rates-between-two-currencies)
-            - [Getting the Rates Between More Than Two Currencies](#getting-the-rates-between-more-than-two-currencies)
         - [Convert Currencies](#convert-currencies)
-            - [Converting Between Two Currencies](#converting-between-two-currencies)
-            - [Converting Between More Than Two Currencies](#converting-between-more-than-two-currencies)
         - [Convert Currencies Between Date Range](#convert-currencies-between-date-range)
-            - [Converting Between Two Currencies in a Date Range](#converting-between-two-currencies-in-a-date-range)
-            - [Converting Between More Than Two Currencies in a Date Range](#converting-between-more-than-two-currencies-in-a-date-range)
 - [Testing](#testing)
-- [Security](#security)
 - [Contribution](#contribution)
 - [Credits](#credits)
 - [Changelog](#changelog)
-- [Upgrading](#upgrading)
 - [License](#license)
 
 ## Overview
@@ -86,43 +78,33 @@ $exchangeRates->setServiceOptions([
 ### Methods
 
 #### Available Currencies
-To get the available currencies that are supported by the package, you can use the `->currencies()` method like so:
+To get the available currencies that are supported by the package, you can use the `currencies()` method like so:
 
 ```php
-$exchangeRates = new ExchangeRate();
-
 $exchangeRates->currencies();
 ```
 
-#### Exchange Rate
+#### Exchange Rate Between Two Currencies
 
-##### Getting the Rate Between Two Currencies
+To get the exchange for one currency to another, you can use the `exchangeRate()` method.
 
-To get the exchange for one currency to another, you can use the `->exchangeRate()` method.
-
-The example below shows how to get the exchange rate from 'GBP' to 'EUR' for today:
+The example below shows how to get the exchange rate from GBP to EUR for today:
 
 ```php
-$exchangeRates = new ExchangeRate();
-
 $result = $exchangeRates->exchangeRate('GBP', 'EUR');
 
 // $result: '1.10086'
 ```
 
-Note: If a Carbon date is passed as the third parameter, the exchange rate for that day will be returned (if valid). If no date is passed, today's exchange rate will be used.
+If a valid date is passed as the third parameter, the exchange rate for that day will be returned. If no date is passed, today's exchange rate will be used.
 
-##### Getting the Rate Between More Than Two Currencies
+#### Exchange Rate Between More Than Two Currencies
 
 It is possible to get the exchange rates for multiple currencies in one call. This can be particularly useful if you are needing to get many exchange rates at once and do not want to make multiple API calls.
 
-To do this, you can use `->exchangeRate()` method and pass an array of currency code strings as the second parameter. This will return an array containing the exchange rates as strings.
-
-The example below shows how to get the exchange rates from 'GBP' to 'EUR' and 'USD' for today.
+To do this, you can use `exchangeRate()` method and pass an array of currency code strings as the second parameter. This will return an array containing the exchange rates as strings:
 
 ```php
-$exchangeRates = new ExchangeRate();
-
 $result = $exchangeRates->exchangeRate('GBP', ['EUR', 'USD']);
 
 // $result: [
@@ -131,22 +113,20 @@ $result = $exchangeRates->exchangeRate('GBP', ['EUR', 'USD']);
 // ];
 ```
 
+As above, you can pass a date as the third parameter to get the exchange rates for that day.
+
 #### Exchange Rates Between Date Range
 
-##### Getting the Rates Between Two Currencies
+To get the exchange rates between two currencies and a range of dates, you can use the `exchangeRateBetweenDateRange()` method.
 
-To get the exchange rates between two currencies between a given date range, you can use the `->exchangeRateBetweenDateRange()` method.
-
-The example below shows how to get the exchange rates from 'GBP' to 'EUR' for the past 3 days:
+The example below shows how to get the exchange rates from GBP to EUR for the past 3 days:
 
 ```php
-$exchangeRates = new ExchangeRate();
-
 $result = $exchangeRates->exchangeRateBetweenDateRange(
     'GBP',
     'EUR',
-    Carbon::now()->subWeek(),
-    Carbon::now()
+    (new DateTime)->sub(new DateInterval('P3D')),
+    new DateTime
 );
 
 // $result: [
@@ -162,20 +142,14 @@ $result = $exchangeRates->exchangeRateBetweenDateRange(
 // ];
 ```
 
-##### Getting the Rates Between More Than Two Currencies
-
-To get the exchange rates for multiple currencies in one call, you can pass an array of currency codes strings as the second parameter to the `->exchangeRateBetweenDateRange()` method.
-
-The example below shows how to get the exchange rates from 'GBP' to 'EUR' and 'USD' for the past 3 days:
-
+As before, you can pass an array of currency codes as the second parameter:
+ 
 ```php
-$exchangeRates = new ExchangeRate();
-
 $result = $exchangeRates->exchangeRateBetweenDateRange(
     'GBP',
     ['EUR', 'USD'],
-    Carbon::now()->subDays(3),
-    Carbon::now(),
+    (new DateTime)->sub(new DateInterval('P3D')),
+    new DateTime
 );
 
 // $result: [
@@ -184,11 +158,11 @@ $result = $exchangeRates->exchangeRateBetweenDateRange(
 //         'GBPUSD' => '1.2523571825',
 //      ],
 //     '2020-07-08' => [
-//         'EUR' => '1.1120625424',
+//         'GBPEUR' => '1.1120625424',
 //         'GBPUSD' => '1.2550737853',
 //      ],
 //     '2020-07-09' => [
-//         'EUR' => '1.1153867604',
+//         'GBPEUR' => '1.1153867604',
 //         'GBPUSD' => '1.2650716636',
 //      ],
 // ];
@@ -196,33 +170,23 @@ $result = $exchangeRates->exchangeRateBetweenDateRange(
 
 #### Convert Currencies
 
+Similar to how you can get the exchange rate from one currency to another, you can also convert a monetary value from one currency to another. To do this you can use the `convert()` method.
+
 When passing in the monetary value (first parameter) that is to be converted, it's important that you pass it in the lowest denomination of that currency. For example, £1 GBP would be passed in as 100 (as £1 = 100 pence).
 
-##### Converting Between Two Currencies
-
-Similar to how you can get the exchange rate from one currency to another, you can also convert a monetary value from one currency to another. To do this you can use the `->convert()` method.
-
-The example below shows how to convert £1 'GBP' to 'EUR' at today's exchange rate:
+The example below shows how to convert £1 to EUR at today's exchange rate:
 
 ```php
-$exchangeRates = new ExchangeRate();
-
 $result = $exchangeRates->convert(100, 'GBP', 'EUR');
 
 // $result: '110.15884906'
 ```
 
-Note: If a Carbon date object is passed as the third parameter, the exchange rate for that day will be used (if valid). If no date is passed, today's exchange rate will be used.
+If a valid date is passed as the third parameter, the exchange rate for that day will be used. If no date is passed, today's exchange rate will be used.
 
-##### Converting Between More Than Two Currencies
-
-You can also use the `->convert()` method to convert a monetary value from one currency to multiple currencies. To do this, you can pass an array of currency codes strings as the third parameter.
-
-The example below show how to convert £1 'GBP' to 'EUR' and 'USD' at today's exchange rate:
+You can also use the `convert()` method to convert a monetary value from one currency to multiple currencies. To do this, you can pass an array of currency codes strings as the third parameter:
 
 ```php
-$exchangeRates = new ExchangeRate();
-
 $result = $exchangeRates->convert(
     100,
     'GBP',
@@ -237,17 +201,9 @@ $result = $exchangeRates->convert(
 
 #### Convert Currencies Between Date Range
 
-When passing in the monetary value (first parameter) that is to be converted, it's important that you pass it in the lowest denomination of that currency. For example, £1 GBP would be passed in as 100 (as £1 = 100 pence).
-
-##### Converting Between Two Currencies in a Date Range
-
-Similar to getting the exchange rates between a date range, you can also get convert monetary values from one currency to another using the exchange rates. To do this you can use the ``` ->convertBetweenDateRange() ``` method.
-
-The example below shows how to convert £1 'GBP' to 'EUR' using the exchange rates for the past 3 days:
+Similar to getting the exchange rates between a date range, you can also get convert monetary values from one currency to another using the exchange rates. To do this you can use the `convertBetweenDateRange()` method:
 
 ```php
-$exchangeRates = new ExchangeRate();
-
 $result = $exchangeRates->convertBetweenDateRange(
     100,
     'GBP',
@@ -269,14 +225,9 @@ $result = $exchangeRates->convertBetweenDateRange(
 // ];
 ```
 
-##### Converting Between More Than Two Currencies in a Date Range
-
-You can also use the `->convertBetweenDateRange()` method to convert a monetary value from one currency to multiple currencies using the exchange rates between a date range. To do this, you can pass an array of currency codes strings as the third parameter.
-
-The example below show how to convert £1 'GBP' to 'EUR' and 'USD' at the past three days' exchange rates:
+You can also convert to multiple currencies:
 
 ```php
-$exchangeRates = new ExchangeRate();
 $result = $exchangeRates->convertBetweenDateRange(
     100,
     'GBP',
@@ -318,7 +269,7 @@ To contribute to this library, please use the following guidelines before submit
 - Write tests for any new functions that are added. If you are updating existing code, make sure that the existing tests
   pass and write more if needed.
 - Follow [PSR-12](https://www.php-fig.org/psr/psr-12/) coding standards.
-- Make all pull requests to the ``` master ``` branch.
+- Make all pull requests to the `main` branch.
 
 ## Credits
 
@@ -330,10 +281,6 @@ To contribute to this library, please use the following guidelines before submit
 ## Changelog
 
 Check the [CHANGELOG](CHANGELOG.md) to get more information about the latest changes.
-
-## Upgrading
-
-Check the [UPGRADE](UPGRADE.md) guide to get more information on how to update this library to newer versions.
 
 ## License
 
