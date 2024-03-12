@@ -51,7 +51,7 @@ composer require cmbuckley/exchange-rates
 
 The package has been developed and tested to work with the following minimum requirements:
 
-- PHP 8.0
+- PHP 8.2
 
 ## Usage
 
